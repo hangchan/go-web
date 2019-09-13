@@ -1,0 +1,3 @@
+dependencies:
+- name: mysql
+  version: 5.7.14

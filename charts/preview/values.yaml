@@ -22,3 +22,7 @@ preview:
     repository:
     tag:
     pullPolicy: IfNotPresent
+mysql:
+  mysqlUser: testing
+  mysqlPassword: "foo-foo-foo-foo"
+  mysqlRootPassword: "foo-bar-foo-bar"
