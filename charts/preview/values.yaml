@@ -5,6 +5,7 @@ expose:
     helm.sh/hook-delete-policy: hook-succeeded
   config:
     exposer: Ingress
+    domain: jx.dev.303net.net
     http: true
     tlsacme: false
 
