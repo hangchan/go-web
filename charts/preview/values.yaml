@@ -17,6 +17,7 @@ cleanup:
     helm.sh/hook-delete-policy: hook-succeeded
 
 preview:
+  nameOverride: go-web
   image:
     repository:
     tag:
