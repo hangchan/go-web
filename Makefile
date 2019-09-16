@@ -18,14 +18,17 @@ check: fmt build test
 
 .PHONY: build
 build:
+	go get github.com/go-sql-driver/mysql
 	CGO_ENABLED=$(CGO_ENABLED) $(GO) build -ldflags $(BUILDFLAGS) -o bin/$(NAME) $(MAIN_GO)
 
-test: 
+test:
+	go get github.com/go-sql-driver/mysql
 	CGO_ENABLED=$(CGO_ENABLED) $(GO) test $(PACKAGE_DIRS) -test.v
 
 full: $(PKGS)
 
 install:
+	go get github.com/go-sql-driver/mysql
 	GOBIN=${GOPATH}/bin $(GO) install -ldflags $(BUILDFLAGS) $(MAIN_GO)
 
 fmt:

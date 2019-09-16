@@ -13,14 +13,15 @@ import (
 var (
 	username string = "testing"
 	password string = "foo-foo-foo-foo"
-	dbHost   string = "preview-mysql"
+	dbHost   string = "go-db"
 	database string = "demo"
 	//table 	 string = "counter"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func counterHandler(w http.ResponseWriter, r *http.Request) {
 	title := "Jenkins X golang http example"
 	count := getCount()
+	addCount(count)
 
 	from := ""
 	if r.URL != nil {
@@ -32,6 +33,22 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "Hello from:  "+title+"\n")
 	fmt.Fprintf(w, "Visitor Count: %d \n", count)
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+	title := "Jenkins X golang http example"
+	// test the function
+	getCount()
+
+	from := ""
+	if r.URL != nil {
+		from = r.URL.String()
+	}
+	if from != "/favicon.ico" {
+		log.Printf("title: %s\n", title)
+	}
+
+	fmt.Fprintf(w, "Hello from:  "+title+"\n")
 }
 
 func dbConn() string {
@@ -50,7 +67,7 @@ func addCount(count int) {
 	count++
 	countStr := strconv.Itoa(count)
 
-	sql := strings.Join([]string{"UPDATE COUNTER SET count VALUES(", countStr, ")"}, "")
+	sql := strings.Join([]string{"UPDATE COUNTER SET count = ", countStr}, "")
 
 	_, err = db.Exec(sql)
 	if err != nil {
@@ -79,5 +96,6 @@ func getCount() int {
 
 func main() {
 	http.HandleFunc("/", handler)
+	http.HandleFunc("/counter", counterHandler)
 	http.ListenAndServe(":8080", nil)
 }

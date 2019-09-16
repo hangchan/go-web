@@ -22,7 +22,16 @@ preview:
     repository:
     tag:
     pullPolicy: IfNotPresent
-mysql:
+
+go-db:
+  fullnameOverride: go-db
   mysqlUser: testing
   mysqlPassword: "foo-foo-foo-foo"
   mysqlRootPassword: "foo-bar-foo-bar"
+  initializationFiles:
+    demo-db.sql: |-
+      CREATE DATABASE demo;
+      CREATE TABLE demo.COUNTER (count int);
+      INSERT INTO demo.COUNTER VALUES(0);
+      GRANT ALL PRIVILEGES ON demo.* TO 'testing'@'%';
+      FLUSH PRIVILEGES;
