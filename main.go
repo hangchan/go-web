@@ -13,7 +13,7 @@ import (
 var (
 	username string = "testing"
 	password string = "foo-foo-foo-foo"
-	dbHost   string = "preview-mysql"
+	dbHost   string = "go-db"
 	database string = "demo"
 	//table 	 string = "counter"
 )
@@ -37,6 +37,8 @@ func counterHandler(w http.ResponseWriter, r *http.Request) {
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	title := "Jenkins X golang http example"
+	// test the function
+	getCount()
 
 	from := ""
 	if r.URL != nil {

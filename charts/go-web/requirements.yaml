@@ -1,4 +1,5 @@
 dependencies:
-- name: mysql
+- alias: go-db
+  name: mysql
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 1.3.1
