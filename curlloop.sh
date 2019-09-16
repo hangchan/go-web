@@ -6,5 +6,5 @@ echo "curling URL $APP in a loop..."
 while true
 do 
     curl $APP 
-    sleep 2
+    sleep 120
 done
