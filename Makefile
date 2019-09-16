@@ -36,6 +36,7 @@ clean:
 	rm -rf build release
 
 linux:
+	go get github.com/go-sql-driver/mysql
 	CGO_ENABLED=$(CGO_ENABLED) GOOS=linux GOARCH=amd64 $(GO) build -ldflags $(BUILDFLAGS) -o bin/$(NAME) $(MAIN_GO)
 
 .PHONY: release clean
@@ -59,7 +60,7 @@ $(PKGS): $(GOLINT) $(FGT)
 .PHONY: lint
 lint: vendor | $(PKGS) $(GOLINT) # ❷
 	@cd $(BASE) && ret=0 && for pkg in $(PKGS); do \
-	    test -z "$$($(GOLINT) $$pkg | tee /dev/stderr)" || ret=1 ; \
+		test -z "$$($(GOLINT) $$pkg | tee /dev/stderr)" || ret=1 ; \
 	done ; exit $$ret
 
 watch:
