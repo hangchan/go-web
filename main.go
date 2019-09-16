@@ -15,7 +15,6 @@ var (
 	password string = "foo-foo-foo-foo"
 	dbHost   string = "go-db"
 	database string = "demo"
-	//table 	 string = "counter"
 )
 
 func counterHandler(w http.ResponseWriter, r *http.Request) {
