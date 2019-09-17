@@ -16,19 +16,20 @@ all: build
 
 check: fmt build test
 
-.PHONY: build
-build:
+.PHONY: build deps
+
+deps:
 	go get github.com/go-sql-driver/mysql
+	
+build: deps
 	CGO_ENABLED=$(CGO_ENABLED) $(GO) build -ldflags $(BUILDFLAGS) -o bin/$(NAME) $(MAIN_GO)
 
-test:
-	go get github.com/go-sql-driver/mysql
+test: deps
 	CGO_ENABLED=$(CGO_ENABLED) $(GO) test $(PACKAGE_DIRS) -test.v
 
 full: $(PKGS)
 
 install:
-	go get github.com/go-sql-driver/mysql
 	GOBIN=${GOPATH}/bin $(GO) install -ldflags $(BUILDFLAGS) $(MAIN_GO)
 
 fmt:
@@ -38,8 +39,7 @@ fmt:
 clean:
 	rm -rf build release
 
-linux:
-	go get github.com/go-sql-driver/mysql
+linux: deps
 	CGO_ENABLED=$(CGO_ENABLED) GOOS=linux GOARCH=amd64 $(GO) build -ldflags $(BUILDFLAGS) -o bin/$(NAME) $(MAIN_GO)
 
 .PHONY: release clean
